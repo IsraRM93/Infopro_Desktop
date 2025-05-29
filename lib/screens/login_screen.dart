@@ -21,16 +21,29 @@ class LoginScreen extends StatelessWidget {
             children: [
               const LoginHeader(),
               const SizedBox(height: 30),
-              SizedBox(width: 300, child: const CustomTextField(hintText: 'Correo electrónico')),
+              SizedBox(
+                width: 300,
+                child: const CustomTextField(hintText: 'Correo electrónico'),
+              ),
               const SizedBox(height: 15),
-              SizedBox(width: 300, child: const CustomTextField(hintText: 'Contraseña', isPassword: true)),
+              SizedBox(
+                width: 300,
+                child: const CustomTextField(
+                  hintText: 'Contraseña',
+                  isPassword: true,
+                ),
+              ),
               const SizedBox(height: 30),
               SizedBox(width: 200, child: LoginButton(onPressed: () {})),
               const SizedBox(height: 20),
 
               // Botón para cambiar el tema
               IconButton(
-                icon: Icon(themeProvider.themeMode == ThemeMode.dark ? Icons.light_mode : Icons.dark_mode),
+                icon: Icon(
+                  themeProvider.themeMode == ThemeMode.dark
+                      ? Icons.light_mode
+                      : Icons.dark_mode,
+                ),
                 onPressed: () {
                   themeProvider.toggleTheme();
                 },
