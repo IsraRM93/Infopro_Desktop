@@ -9,6 +9,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardColor = Theme.of(context).cardColor;
+    final borderColor = isDark ? Colors.grey.shade700 : Colors.grey.shade400;
+    final fieldFillColor = isDark ? Colors.grey.shade900 : Colors.grey.shade100;
 
     final List<Tab> tabs = const [
       Tab(text: 'Aforador'),
@@ -29,31 +33,47 @@ class HomeScreen extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(24.0),
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
+            color: cardColor,
             borderRadius: BorderRadius.circular(24.0),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: isDark ? Colors.black.withOpacity(0.2) : Colors.black.withOpacity(0.05),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
             ],
           ),
-          width: 400,
+          width: 500,
           child: ListView(
             shrinkWrap: true,
             children: [
-              _buildLabeledTextField('Modelo'),
+              // Fila con los campos y combos uno al lado del otro
+              Row(
+                children: [
+                  Expanded(child: _buildLabeledTextField('Modelo', borderColor, fieldFillColor, isDark)),
+                  const SizedBox(width: 12),
+                  Expanded(child: _buildLabeledTextField('NSM', borderColor, fieldFillColor, isDark)),
+                ],
+              ),
               const SizedBox(height: 12),
-              _buildLabeledTextField('NSM'),
+              Row(
+                children: [
+                  Expanded(child: _buildLabeledTextField('Baudrate', borderColor, fieldFillColor, isDark)),
+                  const SizedBox(width: 12),
+                  Expanded(child: _buildLabeledTextField('NSUE', borderColor, fieldFillColor, isDark)),
+                ],
+              ),
               const SizedBox(height: 12),
-              _buildLabeledTextField('Baudrate'),
-              const SizedBox(height: 12),
-              _buildLabeledTextField('NSUE'),
-              const SizedBox(height: 12),
-              _buildLabeledTextField('Diámetro nominal (mm)'),
-              const SizedBox(height: 12),
-              _buildLabeledDropdown('Sistema', ['Sistema 1', 'Sistema 2']),
+              Row(
+                children: [
+                  Expanded(child: _buildLabeledTextField('Diámetro nominal (mm)', borderColor, fieldFillColor, isDark)),
+                  const SizedBox(width: 12),
+                  Expanded(child: _buildLabeledDropdown('Sistema', ['Medidor (M)', 'Sistema de medicion (SM)'], borderColor, fieldFillColor, isDark)),
+                ],
+              ),
+              const SizedBox(height: 24),
+              // Medición actual (RS485)
+              _buildCurrentMeasurementSection(borderColor, fieldFillColor, isDark),
             ],
           ),
         ),
@@ -105,24 +125,35 @@ class HomeScreen extends StatelessWidget {
 }
 
 // Helper widget for labeled text fields with rounded borders and smaller size
-Widget _buildLabeledTextField(String label) {
+Widget _buildLabeledTextField(String label, Color borderColor, Color fillColor, bool isDark) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+      Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
       const SizedBox(height: 6),
       SizedBox(
         height: 36,
         child: TextField(
-          style: const TextStyle(fontSize: 14),
+          style: TextStyle(fontSize: 14, color: isDark ? Colors.white : Colors.black),
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.0),
+              borderSide: BorderSide(color: borderColor),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+              borderSide: BorderSide(color: borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16.0),
+              borderSide: BorderSide(color: borderColor, width: 2),
             ),
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 12,
               vertical: 8,
             ),
+            filled: true,
+            fillColor: fillColor,
           ),
         ),
       ),
@@ -131,33 +162,45 @@ Widget _buildLabeledTextField(String label) {
 }
 
 // Helper widget for labeled dropdowns with rounded borders and smaller size
-Widget _buildLabeledDropdown(String label, List<String> items) {
+Widget _buildLabeledDropdown(String label, List<String> items, Color borderColor, Color fillColor, bool isDark) {
   String? selectedValue = items.isNotEmpty ? items.first : null;
   return StatefulBuilder(
     builder: (context, setState) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
           const SizedBox(height: 6),
           SizedBox(
             height: 36,
             child: DropdownButtonFormField<String>(
               value: selectedValue,
-              style: const TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14, color: isDark ? Colors.white : Colors.black),
+              dropdownColor: fillColor,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16.0),
+                  borderSide: BorderSide(color: borderColor),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                  borderSide: BorderSide(color: borderColor),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                  borderSide: BorderSide(color: borderColor, width: 2),
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 12,
                   vertical: 8,
                 ),
+                filled: true,
+                fillColor: fillColor,
               ),
               items: items
                   .map((item) => DropdownMenuItem<String>(
                         value: item,
-                        child: Text(item),
+                        child: Text(item, style: TextStyle(color: isDark ? Colors.white : Colors.black)),
                       ))
                   .toList(),
               onChanged: (value) {
@@ -170,5 +213,35 @@ Widget _buildLabeledDropdown(String label, List<String> items) {
         ],
       );
     },
+  );
+}
+
+// Widget para mostrar la medición actual recibida por RS485
+Widget _buildCurrentMeasurementSection(Color borderColor, Color fillColor, bool isDark) {
+  // Aquí puedes conectar con el backend o el puerto RS485 real.
+  // Por ahora, mostramos un valor simulado.
+  String simulatedValue = "123.45 m³/h";
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Medición actual (RS485)',
+        style: TextStyle(fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black),
+      ),
+      const SizedBox(height: 6),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          border: Border.all(color: borderColor),
+          borderRadius: BorderRadius.circular(16.0),
+          color: fillColor,
+        ),
+        child: Text(
+          simulatedValue,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: isDark ? Colors.white : Colors.black),
+        ),
+      ),
+    ],
   );
 }
