@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:infopro_desktop/screens/flie_explorer_screen.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
 import 'login_screen.dart';
@@ -472,7 +473,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       const Center(child: Text('Contenido de Tiempo')),
-      const Center(child: Text('Contenido de Explorador')),
+      const FileExplorerScreen(),
       // Red Tab: Carrier, APN, Usuario, Contraseña, Guardar y Enviar Web
       Center(
         child: Container(
