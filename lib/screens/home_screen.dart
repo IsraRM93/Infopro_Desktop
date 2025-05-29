@@ -386,19 +386,324 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      const Center(child: Text('Contenido de Evaluación de conformidad')),
+      // Evaluación de conformidad Tab: ID UVA, SISTEMA, NSUT (todos campos de texto, sin combobox)
+      Center(
+        child: Container(
+          padding: const EdgeInsets.all(24.0),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(24.0),
+            boxShadow: [
+              BoxShadow(
+                color: isDark
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          width: 500,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'ID UVA',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'SISTEMA',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'NSUT',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const Expanded(child: SizedBox()),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.send),
+                  label: const Text('Enviar'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                  ),
+                  onPressed: () {
+                    // Aquí va la lógica de envío de la evaluación de conformidad
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Evaluación de conformidad enviada'),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       const Center(child: Text('Contenido de Tiempo')),
       const Center(child: Text('Contenido de Explorador')),
-      const Center(child: Text('Contenido de Red')),
+      // Red Tab: Carrier, APN, Usuario, Contraseña, Guardar y Enviar Web
+      Center(
+        child: Container(
+          padding: const EdgeInsets.all(24.0),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(24.0),
+            boxShadow: [
+              BoxShadow(
+                color: isDark
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          width: 500,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Carrier',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'APN',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Usuario',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Contraseña',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.save),
+                    label: const Text('Guardar'),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 12,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                    ),
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Configuración guardada')),
+                      );
+                    },
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.public),
+                    label: const Text('Enviar Web'),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 12,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                    ),
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Datos enviados a la web'),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
       const Center(child: Text('Contenido de Consola')),
-      const Center(child: Text('Contenido de Ethernet')),
+      // Ethernet Tab: IP ADDRESS, GATEWAY y MAC Address
+      Center(
+        child: Container(
+          padding: const EdgeInsets.all(24.0),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(24.0),
+            boxShadow: [
+              BoxShadow(
+                color: isDark
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          width: 500,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'IP ADDRESS',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'GATEWAY',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'MAC Address',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const Expanded(child: SizedBox()),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
     ];
+
+    final now = DateTime.now();
+    final formattedDate =
+        "${now.day.toString().padLeft(2, '0')}/${now.month.toString().padLeft(2, '0')}/${now.year}";
+    final formattedTime =
+        "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}";
+
+    // Simulación de nivel de señal móvil (0 a 4 barras)
+    final int signalStrength = 3; // Cambia este valor para simular la señal
+
+    Color getSignalColor() {
+      return isDark ? Colors.white : Colors.black;
+    }
+
+    Widget buildBarSignalIndicator(int strength) {
+      // Indicador tipo barras, estilo minimalista y moderno
+      return Row(
+        children: List.generate(4, (index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 1.5),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              width: 5,
+              height: 8.0 + (index * 5),
+              decoration: BoxDecoration(
+                color: index < strength
+                    ? getSignalColor()
+                    : getSignalColor().withOpacity(0.18),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          );
+        }),
+      );
+    }
 
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Bienvenido"),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Infopro Desktop"),
+              Row(
+                children: [
+                  Text(
+                    "Fecha: $formattedDate  Hora: $formattedTime",
+                    style: TextStyle(fontSize: 16, color: getSignalColor()),
+                  ),
+                  const SizedBox(width: 16),
+                  buildBarSignalIndicator(signalStrength),
+                ],
+              ),
+            ],
+          ),
           actions: [
             IconButton(
               icon: Icon(
