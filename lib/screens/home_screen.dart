@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/theme_provider.dart';
@@ -37,7 +39,9 @@ class HomeScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(24.0),
             boxShadow: [
               BoxShadow(
-                color: isDark ? Colors.black.withOpacity(0.2) : Colors.black.withOpacity(0.05),
+                color: isDark
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.05),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),
@@ -50,38 +54,338 @@ class HomeScreen extends StatelessWidget {
               // Fila con los campos y combos uno al lado del otro
               Row(
                 children: [
-                  Expanded(child: _buildLabeledTextField('Modelo', borderColor, fieldFillColor, isDark)),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Modelo',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
                   const SizedBox(width: 12),
-                  Expanded(child: _buildLabeledTextField('NSM', borderColor, fieldFillColor, isDark)),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'NSM',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
               Row(
                 children: [
-                  Expanded(child: _buildLabeledTextField('Baudrate', borderColor, fieldFillColor, isDark)),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Baudrate',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
                   const SizedBox(width: 12),
-                  Expanded(child: _buildLabeledTextField('NSUE', borderColor, fieldFillColor, isDark)),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'NSUE',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 12),
               Row(
                 children: [
-                  Expanded(child: _buildLabeledTextField('Diámetro nominal (mm)', borderColor, fieldFillColor, isDark)),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Diámetro nominal (mm)',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
                   const SizedBox(width: 12),
-                  Expanded(child: _buildLabeledDropdown('Sistema', ['Medidor (M)', 'Sistema de medicion (SM)'], borderColor, fieldFillColor, isDark)),
+                  Expanded(
+                    child: _buildLabeledDropdown(
+                      'Sistema',
+                      ['Medidor (M)', 'Sistema de medicion (SM)'],
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 24),
               // Medición actual (RS485)
-              _buildCurrentMeasurementSection(borderColor, fieldFillColor, isDark),
+              _buildCurrentMeasurementSection(
+                borderColor,
+                fieldFillColor,
+                isDark,
+              ),
             ],
           ),
         ),
       ),
-      // Other tabs remain the same
-      const Center(child: Text('Contenido de UVA')),
-      const Center(child: Text('Contenido de FTP')),
-      const Center(child: Text('Contenido de Concesión')),
+      // UVA Tab con ID, Usuario y Contraseña, mismo estilo que Aforador
+      Center(
+        child: Container(
+          padding: const EdgeInsets.all(24.0),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(24.0),
+            boxShadow: [
+              BoxShadow(
+                color: isDark
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          width: 500,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'ID',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Usuario',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Contraseña',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  const Expanded(
+                    child: SizedBox(),
+                  ), // Espacio vacío para alinear
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      // FTP Tab: Servidor Principal y Envío
+      Center(
+        child: Container(
+          padding: const EdgeInsets.all(24.0),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(24.0),
+            boxShadow: [
+              BoxShadow(
+                color: isDark
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          width: 500,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Text(
+                'Servidor Principal',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: isDark ? Colors.white : Colors.black,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Servidor',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Folder',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Puerto',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Usuario',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Contraseña',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  const Expanded(child: SizedBox()),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Envío',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: isDark ? Colors.white : Colors.black,
+                ),
+              ),
+              const SizedBox(height: 18),
+              const SizedBox(width: 12),
+              Expanded(
+                child: _buildLabeledTextField(
+                  'Hora',
+                  borderColor,
+                  fieldFillColor,
+                  isDark,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+
+      // Concesión Tab: RFC, Etiqueta, Latitud, Longitud y Fecha
+      Center(
+        child: Container(
+          padding: const EdgeInsets.all(24.0),
+          decoration: BoxDecoration(
+            color: cardColor,
+            borderRadius: BorderRadius.circular(24.0),
+            boxShadow: [
+              BoxShadow(
+                color: isDark
+                    ? Colors.black.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          width: 500,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'RFC',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Etiqueta',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Latitud',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Longitud',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildLabeledTextField(
+                      'Fecha',
+                      borderColor,
+                      fieldFillColor,
+                      isDark,
+                    ),
+                  ),
+                  const Expanded(child: SizedBox()),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
       const Center(child: Text('Contenido de Evaluación de conformidad')),
       const Center(child: Text('Contenido de Tiempo')),
       const Center(child: Text('Contenido de Explorador')),
@@ -125,16 +429,30 @@ class HomeScreen extends StatelessWidget {
 }
 
 // Helper widget for labeled text fields with rounded borders and smaller size
-Widget _buildLabeledTextField(String label, Color borderColor, Color fillColor, bool isDark) {
+Widget _buildLabeledTextField(
+  String label,
+  Color borderColor,
+  Color fillColor,
+  bool isDark,
+) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
+      Text(
+        label,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: isDark ? Colors.white : Colors.black,
+        ),
+      ),
       const SizedBox(height: 6),
       SizedBox(
         height: 36,
         child: TextField(
-          style: TextStyle(fontSize: 14, color: isDark ? Colors.white : Colors.black),
+          style: TextStyle(
+            fontSize: 14,
+            color: isDark ? Colors.white : Colors.black,
+          ),
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16.0),
@@ -162,20 +480,35 @@ Widget _buildLabeledTextField(String label, Color borderColor, Color fillColor, 
 }
 
 // Helper widget for labeled dropdowns with rounded borders and smaller size
-Widget _buildLabeledDropdown(String label, List<String> items, Color borderColor, Color fillColor, bool isDark) {
+Widget _buildLabeledDropdown(
+  String label,
+  List<String> items,
+  Color borderColor,
+  Color fillColor,
+  bool isDark,
+) {
   String? selectedValue = items.isNotEmpty ? items.first : null;
   return StatefulBuilder(
     builder: (context, setState) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
+          Text(
+            label,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: isDark ? Colors.white : Colors.black,
+            ),
+          ),
           const SizedBox(height: 6),
           SizedBox(
             height: 36,
             child: DropdownButtonFormField<String>(
               value: selectedValue,
-              style: TextStyle(fontSize: 14, color: isDark ? Colors.white : Colors.black),
+              style: TextStyle(
+                fontSize: 14,
+                color: isDark ? Colors.white : Colors.black,
+              ),
               dropdownColor: fillColor,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -198,10 +531,17 @@ Widget _buildLabeledDropdown(String label, List<String> items, Color borderColor
                 fillColor: fillColor,
               ),
               items: items
-                  .map((item) => DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(item, style: TextStyle(color: isDark ? Colors.white : Colors.black)),
-                      ))
+                  .map(
+                    (item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: TextStyle(
+                          color: isDark ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    ),
+                  )
                   .toList(),
               onChanged: (value) {
                 setState(() {
@@ -217,7 +557,11 @@ Widget _buildLabeledDropdown(String label, List<String> items, Color borderColor
 }
 
 // Widget para mostrar la medición actual recibida por RS485
-Widget _buildCurrentMeasurementSection(Color borderColor, Color fillColor, bool isDark) {
+Widget _buildCurrentMeasurementSection(
+  Color borderColor,
+  Color fillColor,
+  bool isDark,
+) {
   // Aquí puedes conectar con el backend o el puerto RS485 real.
   // Por ahora, mostramos un valor simulado.
   String simulatedValue = "123.45 m³/h";
@@ -227,7 +571,10 @@ Widget _buildCurrentMeasurementSection(Color borderColor, Color fillColor, bool 
     children: [
       Text(
         'Medición actual (RS485)',
-        style: TextStyle(fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black),
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: isDark ? Colors.white : Colors.black,
+        ),
       ),
       const SizedBox(height: 6),
       Container(
@@ -239,7 +586,11 @@ Widget _buildCurrentMeasurementSection(Color borderColor, Color fillColor, bool 
         ),
         child: Text(
           simulatedValue,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: isDark ? Colors.white : Colors.black),
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: isDark ? Colors.white : Colors.black,
+          ),
         ),
       ),
     ],
